@@ -1,0 +1,10 @@
+﻿Iphone 14 Pro Max 128GB;Images/ip14pm128.png;Apple Inc.;33490000
+Iphone 14 Pro 256GB;Images/ip14pr256.png;Apple Inc.;33490000
+Iphone 14 Plus 128GB;Images/ip14pl128.png;Apple Inc.;25990000
+Iphone 13 Pro Max 128GB;Images/ip13pm128.png;Apple Inc.;27490000
+Iphone 13 128GB;Images/ip13st128.png;Apple Inc.;19490000
+Iphone 13 Mini 128GB;Images/ip13mi128.png;Apple Inc.;17490000
+Iphone 12 128GB;Images/ip12st128.png;Apple Inc.;16990000
+Iphone 12 Pro 128GB;Images/ip12pr128.png;Apple Inc.;24990000
+Iphone 12 Minni 64GB;Images/ip12mi64.png;Apple Inc.;15000000
+Iphone 11 256GB;Images/ip11st256.png;Apple Inc.;19000000

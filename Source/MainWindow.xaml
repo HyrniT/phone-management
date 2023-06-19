@@ -1,0 +1,288 @@
+﻿<Fluent:RibbonWindow x:Class="DataBinding.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DataBinding" 
+        Title="Managing Phones" Height="750" Width="1190" Loaded="RibbonWindow_Loaded" WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <local:RelativeToAbsoluteConverter  x:Key="absoluteConverter"/>
+        <local:NumToCurrencyConverter x:Key="currencyConverter"/>
+    </Window.Resources>
+
+    <DockPanel LastChildFill="True">
+        <Fluent:Ribbon DockPanel.Dock="Top">
+            <Fluent:Ribbon.Menu>
+                <Fluent:Backstage Header="Edit">
+                    <Fluent:BackstageTabControl>
+                        <Fluent:BackstageTabItem Header="Settings"/>
+                        <Fluent:BackstageTabItem Header="Advanced"/>
+                        <Fluent:BackstageTabItem Header="Exit" MouseDown="BackstageTabItem_MouseDown"></Fluent:BackstageTabItem>
+                    </Fluent:BackstageTabControl>
+                </Fluent:Backstage>
+            </Fluent:Ribbon.Menu>
+            <Fluent:RibbonTabItem Header="Home">
+                <Fluent:RibbonGroupBox Header="Themes">
+                    <Fluent:Button Header="Light" Icon="Images/light-mode.png"/>
+                    <Fluent:Button Header="Night" Icon="Images/night-mode.png"/>
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="Languages">
+                    <Fluent:Button Header="VN" Icon="Images/vn.png"/>
+                    <Fluent:Button Header="EN" Icon="Images/en.png" Size="Middle"/>
+                    <Fluent:Button Header="ES" Icon="Images/es.png" Size="Middle"/>
+                    <Fluent:Button Header="CN" Icon="Images/cn.png" Size="Middle"/>
+                </Fluent:RibbonGroupBox>
+                <Fluent:RibbonGroupBox Header="View">
+                    <Fluent:Button Header="Lists" Icon="Images/list.png"/>
+                    <Fluent:Button Header="Tiles" Icon="Images/tile.png"/>
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>
+            <Fluent:RibbonTabItem Header="Contact">
+                <Fluent:RibbonGroupBox Header="Help">
+                    <Fluent:Button Header="Help" Icon="Images/help.png"/>
+                    <Fluent:Button Header="Contact" Icon="Images/contact.png"/>
+                    <Fluent:Button Header="Feedback" Icon="Images/feedback.png"/>
+                </Fluent:RibbonGroupBox>
+            </Fluent:RibbonTabItem>
+        </Fluent:Ribbon>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <DockPanel Margin="0,0,0,10" LastChildFill="True">
+                <Label DockPanel.Dock="Top" Name="header" Content="DANH SÁCH ĐIỆN THOẠI"
+                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                   Height="30" FontWeight="Bold" Margin="0,10,0,0" Padding="3" Foreground="Purple"
+                   FontSize="20" FontFamily="Times" FontStretch="Medium"/>
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                    <Label Name="searchContent" Content="Nhập từ khóa để tìm kiếm:"
+                           HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                           Margin="40 0 10 0"
+                           FontSize="15" FontFamily="Times" FontWeight="Bold" Foreground="Purple"/>
+                    <TextBox  Height="25" Width="350"
+                         x:Name="keywordTextBox" TextChanged="keywordTextBox_TextChanged" Text="{Binding Keyword, UpdateSourceTrigger=PropertyChanged}" 
+                         Foreground="Gray" BorderBrush="Purple" BorderThickness="3"
+                         Padding="2 0 2 0"
+                         VerticalContentAlignment="Center" HorizontalContentAlignment="Left">
+                        <TextBox.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </TextBox.Resources>
+                        <TextBox.Style>
+                            <Style BasedOn="{x:Null}" TargetType="{x:Type TextBox}">
+                                <Setter Property="BorderThickness" Value="2"/>
+                                <Setter Property="Padding" Value="1"/>
+                                <Setter Property="AllowDrop" Value="true"/>
+                                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type TextBox}">
+                                            <Border x:Name="bg" BorderBrush="#FF825E5E" BorderThickness="1">
+                                                <ScrollViewer x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="BorderBrush" TargetName="bg" Value="Red"/>
+                                                    <Setter Property="BorderThickness" TargetName="bg" Value="3"/>
+                                                </Trigger>
+                                                <Trigger Property="IsFocused" Value="True">
+                                                    <Setter Property="BorderBrush" TargetName="bg" Value="Red"/>
+                                                    <Setter Property="BorderThickness" TargetName="bg" Value="3"/>
+                                                </Trigger>
+                                                <Trigger Property="IsFocused" Value="False">
+                                                    <Setter Property="BorderBrush" TargetName="bg" Value="Purple"/>
+                                                    <Setter Property="BorderThickness" TargetName="bg" Value="2"/>
+                                                </Trigger>
+                                                <Trigger Property="IsMouseOver" Value="False">
+                                                    <Setter Property="BorderBrush" TargetName="bg" Value="Purple"/>
+                                                    <Setter Property="BorderThickness" TargetName="bg" Value="2"/>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    <Label Name="totalContent" Content="Tổng số sản phẩm:"
+                           VerticalContentAlignment="Center"
+                           Margin="30 0 0 0"
+                           FontSize="15" FontFamily="Times" FontWeight="Bold" Foreground="Purple"/>
+                    <Label x:Name="totalTextBox" Height="25" FontSize="15" FontFamily="Times"
+                           VerticalContentAlignment="Center" Padding="2 0 0 1"
+                           Content="{Binding TotalItems}" FontWeight="Bold" Foreground="Red" />
+                </StackPanel>
+
+                <Grid DockPanel.Dock="Bottom" Height="35" Background="Transparent" Margin="5,0,5,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="282*"></ColumnDefinition>
+                        <ColumnDefinition Width="109*"></ColumnDefinition>
+                        <ColumnDefinition Width="174*"/>
+                        <ColumnDefinition Width="282*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="addButton" Grid.Column="3" Margin="5,0,5,0" Background="#01BEA4" FontFamily="Cascadia Mono SemiBold" FontSize="20" Foreground="White" FontWeight="Medium" Height="35" Content="Thêm" Click="addButton_Click" BorderBrush="DarkGreen" BorderThickness="3">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="10"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <Button x:Name="removeButton" Grid.Column="1" Margin="5,0,5,0" Background="#D40202" FontFamily="Cascadia Mono SemiBold" FontSize="20" Foreground="White" FontWeight="Medium" Height="35" Content="Xóa" Click="removeButton_Click" BorderBrush="DarkRed" BorderThickness="3" Grid.ColumnSpan="2">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="10"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <Button x:Name="updateButton" Grid.Column="0" Margin="5,0,5,0" Background="#2196F3" FontFamily="Cascadia Mono SemiBold" FontSize="20" Foreground="White" FontWeight="Medium" Height="35" Content="Sửa" Click="updateButton_Click" BorderBrush="DarkBlue" BorderThickness="3">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="10"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </Grid>
+                <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Height="25" Margin="10 5 10 10" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Button Content="Back" x:Name="backPageButton" Click="backPageButton_Click" 
+                            Background="#FFEFD5" BorderBrush="Purple" BorderThickness="2" Foreground="Red" 
+                            FontFamily="Cascadia Mono SemiBold" FontWeight="ExtraBold" FontSize="12" VerticalAlignment="Center" 
+                            Padding="5 1 5 0">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <TextBlock Name="pagingInfo" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                               Foreground="Black" FontSize="13" FontWeight="Bold" Margin="10 0 10 5">
+                        <Run Text="{Binding CurrentPage}"/>
+                        / 
+                        <Run Text="{Binding TotalPages}" />
+                    </TextBlock>
+                    <Button Content="Next" x:Name="nextPageButton" Click="nextPageButton_Click"
+                            Background="#FFEFD5" BorderBrush="Purple" BorderThickness="2" Foreground="Red" 
+                            FontFamily="Cascadia Mono SemiBold" FontWeight="ExtraBold" FontSize="12" VerticalAlignment="Center" 
+                            Padding="5 1 5 0">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </StackPanel>
+                <ListView Name="phonesComboBox" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                     Margin="10 10 10 5" Padding="5" BorderThickness="3" BorderBrush="Purple" Background="#FFEFD5">
+                    <ListBox.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </ListBox.Resources>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListViewItem_PreviewMouseLeftButtonDown"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="Purple" BorderThickness="1" CornerRadius="5" Margin="0,2,0,2">
+                                <Border.Effect>
+                                    <DropShadowEffect BlurRadius="10" ShadowDepth="1" Direction="270" Color="#bfced6"/>
+                                </Border.Effect>
+                                <StackPanel Height="200" Width="150" Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                    <StackPanel.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Header="Delete" Click="deleteMenuItem_Click">
+                                                <MenuItem.Icon>
+                                                    <Image Source="Images/delete.png"/>
+                                                </MenuItem.Icon>
+                                            </MenuItem>
+                                            <MenuItem Header="Edit" Click="editMenuItem_Click">
+                                                <MenuItem.Icon>
+                                                    <Image Source="Images/edit.png"/>
+                                                </MenuItem.Icon>
+                                            </MenuItem>
+                                        </ContextMenu>
+                                    </StackPanel.ContextMenu>
+                                    <StackPanel.Background>
+                                        <SolidColorBrush Color="#CC99FF" Opacity="0.15"/>
+                                    </StackPanel.Background>
+                                    <Border Height="120" Width="110" Margin="0,7,0,0" CornerRadius="5" BorderBrush="Purple" BorderThickness="1">
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="{Binding Image, Converter={StaticResource absoluteConverter}}"/>
+                                        </Border.Background>
+                                        <Border.Effect>
+                                            <DropShadowEffect BlurRadius="10" ShadowDepth="1" Direction="270" Color="#bfced6"/>
+                                        </Border.Effect>
+                                    </Border>
+                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Padding="10" Height="50">
+                                        <Run Text="{Binding Name}" FontSize="15" FontFamily="Times" FontStretch="Medium" FontWeight="UltraBold"/>
+                                    </TextBlock>
+                                    <TextBlock  HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Run Text="{Binding Price, Converter={StaticResource currencyConverter}}" Foreground="Red" FontSize="17" FontFamily="Times" FontStretch="Normal" FontWeight="Bold"/>
+                                    </TextBlock>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </DockPanel>
+
+            <DockPanel Grid.Column="1" Margin="0,0,0,10">
+                <Label DockPanel.Dock="Top" Name="headerSub" Content="THÔNG TIN CHI TIẾT"
+                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                   Height="30" FontWeight="Bold" Margin="0,10,0,0" Padding="3" Foreground="Purple"
+                   FontSize="20" FontFamily="Times" FontStretch="Medium">
+                </Label>
+                <StackPanel>
+                    <StackPanel HorizontalAlignment="Center" Height="300" Width="300" Background="Transparent">
+                        <Border Width="250" Height="250" CornerRadius="10" BorderThickness="2" BorderBrush="Purple" Margin="0,10,0,0">
+                            <Border.Background>
+                                <ImageBrush x:Name="imageSub" ImageSource="{Binding Image,Converter={StaticResource absoluteConverter}}"/>
+                            </Border.Background>
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="5" ShadowDepth="2" Direction="270" Color="#bfced6">
+                                </DropShadowEffect>
+                            </Border.Effect>
+                        </Border>
+                        <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0" >
+                                  <Run Name="nameMain" FontSize="20" FontFamily="Times" FontStretch="Normal" FontWeight="Bold"/>
+                        </TextBlock>
+                    </StackPanel>
+                    <Border CornerRadius="20"  Background="#FFE4B5" Padding="15,5,15,5" HorizontalAlignment="Center" Margin="0,0,0,20" BorderBrush="Purple" BorderThickness="3">
+                        <StackPanel Orientation="Horizontal">
+                            <Button Click="backButton_Click" Height="30" Cursor="Hand" Margin="0,0,10,0" Background="Transparent" BorderBrush="Transparent">
+                                <Image Source="Images/back.png"/>
+                            </Button>
+                            <Button Height="30" Cursor="Hand" Margin="0,0,10,0" Background="Transparent" BorderBrush="Transparent">
+                                <Image  Source="Images/capture.png"/>
+                            </Button>
+                            <Button Click="nextButton_Click" Height="30" Cursor="Hand" Margin="0,0,10,0" Background="Transparent" BorderBrush="Transparent">
+                                <Image Source="Images/next.png"/>
+                            </Button>
+                            <Button Click="editButton_Click" Height="30" Cursor="Hand" Background="Transparent" BorderBrush="Transparent">
+                                <Image Source="Images/moreinfo.png"/>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                    <StackPanel>
+                        <TextBlock FontFamily="Times" FontSize="15" FontWeight="ExtraBold" Padding="5" Margin="50,0,0,0">Tên sản phẩm:</TextBlock>
+                        <TextBlock x:Name="nameSub" FontFamily="Times" FontSize="15" FontWeight="Light" HorizontalAlignment="Right" Margin="0,0,50,0"/>
+                        <TextBlock FontFamily="Times" FontSize="15" FontWeight="ExtraBold" Padding="5" Margin="50,0,0,0">Giá thành:</TextBlock>
+                        <TextBlock x:Name="priceSub" FontFamily="Times" FontSize="15" FontWeight="Light" HorizontalAlignment="Right" Margin="0,0,50,0"/>
+                        <TextBlock FontFamily="Times" FontSize="15" FontWeight="ExtraBold" Padding="5" Margin="50,0,0,0">Nhà sản xuất:</TextBlock>
+                        <TextBlock x:Name="manuSub" FontFamily="Times" FontSize="15" FontWeight="Light" HorizontalAlignment="Right" Margin="0,0,50,0"/>
+                    </StackPanel>
+                </StackPanel>
+            </DockPanel>
+        </Grid>
+    </DockPanel>
+</Fluent:RibbonWindow>

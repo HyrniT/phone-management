@@ -1,0 +1,78 @@
+﻿<Window x:Class="DataBinding.EditPhoneWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DataBinding"
+        mc:Ignorable="d"
+        Title="EditPhoneWindow" Height="700" Width="500" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <local:RelativeToAbsoluteConverter x:Key="absoluteConverter"/>
+    </Window.Resources>
+
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Label Content="Chỉnh sửa điện thoại" HorizontalAlignment="Center" FontSize="30" Foreground="Purple" FontWeight="Bold"/>
+        <StackPanel HorizontalAlignment="Center" Height="auto" Width="auto" Background="Transparent">
+            <Border Width="250" Height="250" CornerRadius="10" BorderThickness="2" BorderBrush="Purple" Margin="0,10,0,0">
+                <Border.Background>
+                    <ImageBrush x:Name="imageEdit" ImageSource="{Binding Image, Converter={StaticResource absoluteConverter}}"/>
+                </Border.Background>
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="5" ShadowDepth="2" Direction="270" Color="#bfced6">
+                    </DropShadowEffect>
+                </Border.Effect>
+            </Border>
+            <TextBlock HorizontalAlignment="Center" Margin="10" >
+                 <Run Name="nameMain" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" FontSize="20" FontFamily="Times" FontStretch="Normal" FontWeight="Bold"/>
+            </TextBlock>
+        </StackPanel>
+
+        <Button x:Name="chooseButton" Content="Chọn ảnh" Width="250" Height="35" Click="chooseButton_Click" Background="#01BEA4" FontFamily="Cascadia Mono SemiBold" FontSize="15" Foreground="White" FontWeight="Medium" BorderBrush="DarkGreen" BorderThickness="3">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+
+        <Grid Margin="0,30,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="275"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"></RowDefinition>
+                <RowDefinition Height="20"></RowDefinition>
+                <RowDefinition Height="35"></RowDefinition>
+                <RowDefinition Height="20"></RowDefinition>
+                <RowDefinition Height="35"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label Content="Tên sản phẩm:" Grid.Row="0" Grid.Column="0" FontSize="14" FontFamily="Times" FontWeight="Bold" VerticalAlignment="Center"/>
+            <TextBox Text="{Binding Name}" Margin="2,0,0,0" Padding="5,0,0,0" Width="273" Height="30" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="2" BorderBrush="Purple"/>
+
+            <Label Content="Giá thành:" Grid.Row="2" Grid.Column="0" FontSize="14" FontFamily="Times" FontWeight="Bold" VerticalAlignment="Center"/>
+            <TextBox Text="{Binding Price}" Margin="2,0,0,0" Padding="5,0,0,0" Grid.Row="2" Grid.Column="1" Width="273" Height="35" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="2" BorderBrush="Purple"/>
+
+            <Label Content="Nhà sản xuất:" Grid.Row="4" Grid.Column="0" FontSize="14" FontFamily="Times" FontWeight="Bold" VerticalAlignment="Center"/>
+            <TextBox Text="{Binding Manufacturer}" Margin="2,0,0,0" Padding="5,0,0,0"  Grid.Row="4" Grid.Column="1" Width="273" Height="35" HorizontalAlignment="Left" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="2" BorderBrush="Purple"/>
+        </Grid>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0, 30, 0, 0">
+            <Button Margin="0,0,30,0" x:Name="okButton" Width="80" Height="35" IsDefault="True" Content="OK" Click="okButton_Click" Background="#2196F3" FontFamily="Cascadia Mono SemiBold" FontSize="15" Foreground="White" FontWeight="Medium" BorderBrush="DarkBlue" BorderThickness="3">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button x:Name="cancelButton" Width="80" Height="35" IsCancel="True" Content="Cancel" Click="cancelButton_Click" Background="#D40202" FontFamily="Cascadia Mono SemiBold" FontSize="15" Foreground="White" FontWeight="Medium" BorderBrush="DarkRed" BorderThickness="3">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </StackPanel>
+    </StackPanel>
+</Window>
